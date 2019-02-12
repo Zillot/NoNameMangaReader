@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Base\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NNMR.DL\NNMR.DL.csproj" />
+    <ProjectReference Include="..\NNMR.Model\NNMR.Model.csproj" />
+    <ProjectReference Include="..\NNMR.Utils\NNMR.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
