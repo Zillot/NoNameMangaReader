@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOModels\" />
-    <Folder Include="DMModels\" />
+    <Folder Include="Base\" />
+    <Folder Include="DBModels\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

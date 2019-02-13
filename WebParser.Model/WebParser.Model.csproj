@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOModels\" />
     <Folder Include="DMModels\" />
+    <Folder Include="DTOModels\" />
   </ItemGroup>
 
 </Project>

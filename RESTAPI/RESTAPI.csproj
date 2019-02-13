@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Formaters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.BL\Common.BL.csproj" />
+    <ProjectReference Include="..\Common.Controllers\Common.Controllers.csproj" />
+    <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
+    <ProjectReference Include="..\RESTAPI.BL\RESTAPI.BL.csproj" />
+    <ProjectReference Include="..\RESTAPI.Model\RESTAPI.Model.csproj" />
+    <ProjectReference Include="..\WebParser.BL\WebParser.BL.csproj" />
+    <ProjectReference Include="..\WebParser.Model\WebParser.Model.csproj" />
+    <ProjectReference Include="..\WebParser.Utils\WebParser.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
