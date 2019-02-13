@@ -22,7 +22,6 @@
     <ProjectReference Include="..\RESTAPI.Model\RESTAPI.Model.csproj" />
     <ProjectReference Include="..\WebParser.BL\WebParser.BL.csproj" />
     <ProjectReference Include="..\WebParser.Model\WebParser.Model.csproj" />
-    <ProjectReference Include="..\WebParser.Utils\WebParser.Utils.csproj" />
   </ItemGroup>
 
 </Project>
