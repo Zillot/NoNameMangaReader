@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RESTAPI.BL.Services;
+using RESTAPI.Controllers.Base;
 using RESTAPI.Model.DTOModels;
 
 namespace RESTAPI.Controllers
 {
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private IAuthService _authService { get; set; }
 
