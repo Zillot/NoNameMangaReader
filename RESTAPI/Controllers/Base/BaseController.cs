@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RESTAPI.Model.Exceptions;
 using System;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 
@@ -29,6 +30,14 @@ namespace RESTAPI.Controllers.Base
             {
                 //TODO: ex to log
                 throw new TokenMissmatchException();
+            }
+        }
+
+        protected string getRawBody()
+        {
+            using (var streamReader = new StreamReader(Request.Body))
+            {
+                return streamReader.ReadToEnd();
             }
         }
     }

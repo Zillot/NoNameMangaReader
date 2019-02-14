@@ -9,13 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Auth.Model\Auth.Model.csproj" />
     <ProjectReference Include="..\Common.BL\Common.BL.csproj" />
     <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
-    <ProjectReference Include="..\RESTAPI.Model\RESTAPI.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RESTAPI.Model.DTOModels;
-using RESTAPI.Model;
+using Auth.Model.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,7 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using Common.BL.Services;
 
-namespace RESTAPI.BL.Services
+namespace Auth.BL.Services
 {
 	public class AuthService : IAuthService
     {
@@ -71,8 +70,8 @@ namespace RESTAPI.BL.Services
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretForToken));
 
             var token = new JwtSecurityToken(
-                issuer: JwtSetups.ValidIssuer,
-                audience: JwtSetups.ValidAudience,
+                issuer: "NNMR",
+                audience: "NNMRSCWS",
                 claims: claims,
                 expires: expires,
                 notBefore: DateTime.Now,

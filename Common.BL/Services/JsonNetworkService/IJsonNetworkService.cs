@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Common.BL.Services
 {
-    public interface IJsonNetworkService
+    public interface IJsonNetworkService<ErrorModel>
     {
         void SetAuthToken(string token);
         void SetBaseUri(string baseUri);
@@ -12,19 +13,23 @@ namespace Common.BL.Services
         Task<T> Post<T>(
             string relativeUri,
             Dictionary<string, string> parameters,
-            object body);
+            object body,
+            Action<ErrorModel> errorCallback);
         Task<T> Post<T>(
             string relativeUri,
             Dictionary<string, string> parameters,
             object body,
+            Action<ErrorModel> errorCallback,
             CancellationToken cancellationToken);
 
         Task<T> Get<T>(
             string relativeUri,
-            Dictionary<string, string> parameters);
+            Dictionary<string, string> parameters,
+            Action<ErrorModel> errorCallback);
         Task<T> Get<T>(
             string relativeUri,
             Dictionary<string, string> parameters,
+            Action<ErrorModel> errorCallback,
             CancellationToken cancellationToken);
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RESTAPI.Controllers.Base;
 using RESTAPI.Model.Exceptions;
+using RESTAPI.Model.Models;
 
 namespace RESTAPI.Controllers
 {
@@ -80,11 +81,5 @@ namespace RESTAPI.Controllers
             var arrayOnNoItems = new int[0];
             var justThrowMeThatError = arrayOnNoItems[10];
         }
-    }
-
-    public class PostTestObject
-    {
-        public string Name { get; set; }
-        public string Key { get; set; }
     }
 }

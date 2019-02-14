@@ -1,32 +1,29 @@
-﻿using Common.Controllers.Formaters;
+﻿using Auth.Setups;
+using Common.Controllers.Formaters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RESTAPI.Setups;
 
-namespace RESTAPI
+namespace Auth
 {
     public class Startup
     {
-        private IConfiguration _configuration { get; set; }
-        private DependencyInjectionService _dependencyInjectionService { get; set; }
-        private JwtSetups _jwtSetups { get; set; }
+        private IConfiguration _configuration { get; }
+        private DependencyInjectionService _dependencyInjectionService { get; }
 
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
             _dependencyInjectionService = new DependencyInjectionService();
-            _jwtSetups = new JwtSetups();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             _dependencyInjectionService.SetupServices(services);
-            _jwtSetups.SetupJwt(services, _configuration);
 
             services.AddCors();
 
@@ -53,15 +50,6 @@ namespace RESTAPI
             {
                 app.UseHsts();
             }
-
-            //shows UseCors with CorsPolicyBuilder.
-            app.UseCors(builder =>
-               builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader()
-               .AllowCredentials());
-
-            app.UseAuthentication();
 
             //respponce status manager
             app.Use(ResponceCodeFilter.ManageResponceCodes);

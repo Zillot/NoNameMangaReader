@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Common.BL.Services;
-using RESTAPI.BL.Services;
+using RESTAPI.Services;
 
 namespace RESTAPI.Setups
 {
@@ -8,8 +8,8 @@ namespace RESTAPI.Setups
     {
         public void SetupServices(IServiceCollection services)
         {
-            services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<IDummyNetworkService, DummyNetworkService>();
         }
     }
 }

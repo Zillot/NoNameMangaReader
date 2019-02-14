@@ -1,30 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RESTAPI.BL.Services;
+﻿using RESTAPI.Services;
+using Microsoft.AspNetCore.Mvc;
 using RESTAPI.Controllers.Base;
-using RESTAPI.Model.DTOModels;
+using System.Threading.Tasks;
 
 namespace RESTAPI.Controllers
 {
     public class AuthController : BaseController
     {
-        private IAuthService _authService { get; set; }
+        public IDummyNetworkService _dummyNetworkService { get; set; }
 
-        public AuthController(
-            IAuthService authService)
+        public AuthController(IDummyNetworkService dummyNetworkService)
         {
-            _authService = authService;
+            _dummyNetworkService = dummyNetworkService;
+
+            //TODO move it to some other place and use balancer
+            _dummyNetworkService.SetBaseUri("http://localhost:51003/");
         }
 
         [HttpPost]
-        public ActionResult<string> UserLogin(UserCredentialsDTO credentials)
+        public async Task<string> UserLogin(object emptyBody)
         {
-            return _authService.Login(credentials);
+            return await _dummyNetworkService.Post("auth/userLogin", null, getRawBody());
         }
 
         [HttpPost]
-        public ActionResult<string> AppLogin(AppCredentialsDTO credentials)
+        public async Task<string> AppLogin(object jsonModel)
         {
-            return _authService.Login(credentials);
+            return await _dummyNetworkService.Post("auth/appLogin", null, getRawBody());
         }
     }
 }

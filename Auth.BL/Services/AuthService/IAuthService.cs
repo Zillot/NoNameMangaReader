@@ -1,6 +1,6 @@
-﻿using RESTAPI.Model.DTOModels;
+﻿using Auth.Model.DTOModels;
 
-namespace RESTAPI.BL.Services
+namespace Auth.BL.Services
 {
 	public interface IAuthService
 	{

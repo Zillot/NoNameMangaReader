@@ -54,7 +54,7 @@ namespace Common.Controllers.Formaters
 
         private object formatData(object obj)
         {
-            return new CustomResponce(CustomResponseType.success)
+            return new CustomResponse(CustomResponseType.success)
             {
                 Response = obj
             };

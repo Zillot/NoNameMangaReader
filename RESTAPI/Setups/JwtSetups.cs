@@ -6,13 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RESTAPI.Model
+namespace RESTAPI.Setups
 {
     public class JwtSetups
     {
-        public static readonly string ValidIssuer = "NNMR";
-        public static readonly string ValidAudience = "NNMRSCWS";
-
         public void SetupJwt(IServiceCollection services, IConfiguration configuration)
         {
             var secretForToken = configuration["SecretForToken"];
@@ -26,9 +23,9 @@ namespace RESTAPI.Model
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKeys = new List<SecurityKey>() { secretKey },
                         ValidateIssuer = true,
-                        ValidIssuer = ValidIssuer,
+                        ValidIssuer = "NNMR",
                         ValidateAudience = true,
-                        ValidAudience = ValidAudience,
+                        ValidAudience = "NNMRSCWS",
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.FromMinutes(10)
                     };

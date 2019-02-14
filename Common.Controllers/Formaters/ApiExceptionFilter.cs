@@ -54,7 +54,7 @@ namespace Common.Controllers.Formaters
                 context.Response.StatusCode = 500;
             }
 
-            var responce = new CustomResponce(CustomResponseType.error) {
+            var response = new CustomResponse(CustomResponseType.error) {
                 Response = new {
                     eqEx.ErrorCode,
                     eqEx.ErrorMessage,
@@ -62,7 +62,7 @@ namespace Common.Controllers.Formaters
                 }
             };
 
-            var result = new JsonResult(responce, CustomJsonFormatter.JsonSerializerSettings);
+            var result = new JsonResult(response, CustomJsonFormatter.JsonSerializerSettings);
 
             context.Response.ContentType = "application/json";
             return context.Response.WriteAsync(JsonConvert.SerializeObject(result.Value, JsonSerializerSettings));

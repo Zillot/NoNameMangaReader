@@ -1,4 +1,4 @@
-﻿namespace RESTAPI.Model.DTOModels
+﻿namespace Auth.Model.DTOModels
 {
     public class UserCredentialsDTO
     {
