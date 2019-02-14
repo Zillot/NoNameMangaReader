@@ -44,7 +44,7 @@ namespace Common.Controllers.Formaters
         {
             context.HttpContext.Response.ContentType = "application/json";
 
-            var str = JsonConvert.SerializeObject(FormatData(context.Object), JsonSerializerSettings);
+            var str = JsonConvert.SerializeObject(formatData(context.Object), JsonSerializerSettings);
 
             return context.HttpContext.Response.WriteAsync(
                 str,
@@ -52,7 +52,7 @@ namespace Common.Controllers.Formaters
                 context.HttpContext.RequestAborted);
         }
 
-        private object FormatData(object obj)
+        private object formatData(object obj)
         {
             return new CustomResponce(CustomResponseType.success)
             {
