@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Common.BL.Services;
+using Auth.Model.Exceptions;
 
 namespace Auth.BL.Services
 {
@@ -30,7 +31,7 @@ namespace Auth.BL.Services
         {
             //TODO: get from DB
             var validLogin = _configuration["HardcodedLogin"] == credentials.Login;
-            var validPassword = _configuration["HardcodedPassword"] == credentials.Login;
+            var validPassword = _configuration["HardcodedPassword"] == credentials.Password;
 
             if (validLogin && validPassword)
             {
@@ -41,8 +42,10 @@ namespace Auth.BL.Services
 
                 return GenerateToken(claims, DateTime.Now.AddHours(TOKEN_EXPIRATION_FOR_USER_HOURS));
             }
-
-            return null;
+            else
+            {
+                throw new CredentialsException();
+            }
         }
 
         public string Login(AppCredentialsDTO credentials)

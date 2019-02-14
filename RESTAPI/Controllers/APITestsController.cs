@@ -28,6 +28,16 @@ namespace RESTAPI.Controllers
         }
 
         [HttpGet]
+        public PostTestObject GetModel()
+        {
+            return new PostTestObject()
+            {
+                Key = "Your",
+                Name = "Model"
+            };
+        }
+
+        [HttpGet]
         public string GetMyVlaue(string value)
         {
             return $"here is your value {value}";

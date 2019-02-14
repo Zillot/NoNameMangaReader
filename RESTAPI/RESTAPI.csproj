@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Formaters\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Common.BL\Common.BL.csproj" />
     <ProjectReference Include="..\Common.Controllers\Common.Controllers.csproj" />
     <ProjectReference Include="..\Common.Model\Common.Model.csproj" />

@@ -14,7 +14,7 @@ namespace RESTAPI.Controllers
             _dummyNetworkService = dummyNetworkService;
 
             //TODO move it to some other place and use balancer
-            _dummyNetworkService.SetBaseUri("http://localhost:51003/");
+            _dummyNetworkService.SetBaseUri("http://localhost:51002/");
         }
 
         [HttpPost]

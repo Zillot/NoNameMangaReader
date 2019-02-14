@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RESTAPI.Formaters;
 using RESTAPI.Setups;
 
 namespace RESTAPI
@@ -36,7 +37,7 @@ namespace RESTAPI
                 options.OutputFormatters.RemoveType<JsonOutputFormatter>();
                 options.OutputFormatters.RemoveType<StringOutputFormatter>();
 
-                options.OutputFormatters.Add(new CustomJsonFormatter());
+                options.OutputFormatters.Add(new RPJsonFormatter());
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

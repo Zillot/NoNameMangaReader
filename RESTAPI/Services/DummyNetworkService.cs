@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flurl.Http;
+using Newtonsoft.Json;
 
 namespace RESTAPI.Services
 {
@@ -31,7 +32,7 @@ namespace RESTAPI.Services
             {
                 return await new FlurlRequest(new Flurl.Url(uri))
                     .SetQueryParams(parameters)
-                    .PostStringAsync(body)
+                    .PostJsonAsync(JsonConvert.DeserializeObject(body))
                     .ReceiveString();
             }
             catch (FlurlHttpException ex)

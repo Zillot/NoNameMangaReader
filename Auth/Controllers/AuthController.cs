@@ -15,13 +15,13 @@ namespace Auth.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> UserLogin(UserCredentialsDTO credentials)
+        public ActionResult<string> UserLogin([FromBody]UserCredentialsDTO credentials)
         {
             return _authService.Login(credentials);
         }
 
         [HttpPost]
-        public ActionResult<string> AppLogin(AppCredentialsDTO credentials)
+        public ActionResult<string> AppLogin([FromBody]AppCredentialsDTO credentials)
         {
             return _authService.Login(credentials);
         }
