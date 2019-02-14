@@ -26,8 +26,8 @@ namespace Common.Controllers.Formaters
             switch (context.Response.StatusCode)
             {
                 case 401: SetErrorResponce(context, "AUTH.5", "Unauthorized"); break;
-                case 405: SetErrorResponce(context, "AUTH.6", "Method Not Allowed"); break;
                 case 404: SetErrorResponce(context, "SYSTEMS.2", "Wrong route"); break;
+                case 405: SetErrorResponce(context, "AUTH.6", "Method Not Allowed"); break;
                 default: SetErrorResponce(context, "1", "Unhadeled status error"); break;
             }
         }

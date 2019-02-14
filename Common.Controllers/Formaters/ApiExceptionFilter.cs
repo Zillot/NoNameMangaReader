@@ -46,6 +46,7 @@ namespace Common.Controllers.Formaters
             }
             else
             {
+                eqEx = new UnhandeledException();
                 var msg = exception.GetBaseException().Message;
                 string stack = exception.StackTrace;
                 eqEx.Detail = $"{msg} {stack}";

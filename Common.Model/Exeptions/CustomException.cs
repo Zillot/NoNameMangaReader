@@ -18,19 +18,24 @@ namespace Common.Model.Exeptions
         {
             ErrorCode = errorCode;
             ErrorMessage = errorMessage;
-            Detail = $"{ErrorCode} {ErrorMessage}";
         }
 
         public CustomException(string errorCode, string errorMessage, string detail)
+            : this(errorCode, errorMessage)
         {
-            ErrorCode = errorCode;
-            ErrorMessage = errorMessage;
             Detail = detail;
         }
 
         public CustomException(string errorCode, string errorMessage, int statusCode) 
             : this(errorCode, errorMessage)
         {
+            StatusCode = statusCode;
+        }
+
+        public CustomException(string errorCode, string errorMessage, string detail, int statusCode)
+            : this(errorCode, errorMessage)
+        {
+            Detail = detail;
             StatusCode = statusCode;
         }
     }
