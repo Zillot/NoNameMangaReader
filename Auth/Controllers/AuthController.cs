@@ -16,14 +16,14 @@ namespace Auth.Controllers
         }
 
         [HttpPost]
-        [HaveSSH]
+        [ServiceFilter(typeof(HaveSSHFilter))]
         public string UserLogin([FromBody]UserCredentialsDTO credentials)
         {
             return _authService.Login(credentials);
         }
 
         [HttpPost]
-        [HaveSSH]
+        [ServiceFilter(typeof(HaveSSHFilter))]
         public string AppLogin([FromBody]AppCredentialsDTO credentials)
         {
             return _authService.Login(credentials);

@@ -35,7 +35,7 @@ namespace CommonLib.Services
                     .SetQueryParams(parameters)
                     .WithHeaders(new
                     {
-                        PrivateSSH = HaveSSHAttribute.ExpectedSSH
+                        PrivateSSH = HaveSSHFilter.ExpectedSSH
                     })
                     .PostJsonAsync(JsonConvert.DeserializeObject(body))
                     .ReceiveString();
@@ -58,7 +58,7 @@ namespace CommonLib.Services
                     .SetQueryParams(parameters)
                     .WithHeaders(new
                     {
-                        PrivateSSH = HaveSSHAttribute.ExpectedSSH
+                        PrivateSSH = HaveSSHFilter.ExpectedSSH
                     })
                     .GetAsync()
                     .ReceiveString();

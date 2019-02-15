@@ -1,4 +1,5 @@
 ﻿using Auth.Setups;
+using CommonLib.Attributes;
 using CommonLib.Formaters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace Auth
 
                 options.OutputFormatters.Add(new CustomJsonFormatter());
             });
+
+            services.AddScoped<HaveSSHFilter>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

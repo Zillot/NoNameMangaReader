@@ -1,4 +1,5 @@
-﻿using CommonLib.Formaters;
+﻿using CommonLib.Attributes;
+using CommonLib.Formaters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,8 @@ namespace RESTAPI
         {
             _dependencyInjectionService.SetupServices(services);
             _jwtSetups.SetupJwt(services, _configuration);
+
+            services.AddScoped<HaveSSHFilter>();
 
             services.AddCors();
 
