@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Common.BL.Services;
-using RESTAPI.Services;
+﻿using CommonLib.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RESTAPI.Setups
 {

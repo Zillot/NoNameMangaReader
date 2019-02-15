@@ -1,5 +1,5 @@
 ﻿using Auth.BL.Services;
-using Common.BL.Services;
+using CommonLib.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Setups
