@@ -1,4 +1,4 @@
-﻿using Common.Model.Exeptions;
+﻿using CommonLib.Models.Exeptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RESTAPI.Controllers.Base;
@@ -70,7 +70,7 @@ namespace RESTAPI.Controllers
         [HttpGet]
         public void CustomError()
         {
-            throw new CustomException("custom error code", "the error explanation", "the error detail here");
+            throw new NNMRException("custom error code", "the error explanation", "the error detail here");
         }
 
         [HttpGet]

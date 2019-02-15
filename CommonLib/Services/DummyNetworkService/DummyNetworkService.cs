@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CommonLib.Attributes;
 using Flurl.Http;
 using Newtonsoft.Json;
 
-namespace RESTAPI.Services
+namespace CommonLib.Services
 {
     public class DummyNetworkService : IDummyNetworkService
     {
@@ -32,6 +33,10 @@ namespace RESTAPI.Services
             {
                 return await new FlurlRequest(new Flurl.Url(uri))
                     .SetQueryParams(parameters)
+                    .WithHeaders(new
+                    {
+                        PrivateSSH = HaveSSHAttribute.ExpectedSSH
+                    })
                     .PostJsonAsync(JsonConvert.DeserializeObject(body))
                     .ReceiveString();
             }
@@ -51,6 +56,10 @@ namespace RESTAPI.Services
             {
                 return await new FlurlRequest(new Flurl.Url(uri))
                     .SetQueryParams(parameters)
+                    .WithHeaders(new
+                    {
+                        PrivateSSH = HaveSSHAttribute.ExpectedSSH
+                    })
                     .GetAsync()
                     .ReceiveString();
             }

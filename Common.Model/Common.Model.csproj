@@ -4,9 +4,4 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="DMModels\" />
-    <Folder Include="DTOModels\" />
-  </ItemGroup>
-
 </Project>

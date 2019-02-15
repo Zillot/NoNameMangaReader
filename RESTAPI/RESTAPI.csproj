@@ -11,12 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.BL\Common.BL.csproj" />
-    <ProjectReference Include="..\Common.Controllers\Common.Controllers.csproj" />
-    <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj" />
     <ProjectReference Include="..\RESTAPI.Model\RESTAPI.Model.csproj" />
     <ProjectReference Include="..\WebParser.BL\WebParser.BL.csproj" />
     <ProjectReference Include="..\WebParser.Model\WebParser.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

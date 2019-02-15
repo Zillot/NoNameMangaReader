@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RESTAPI.Services
+namespace CommonLib.Services
 {
     public interface IDummyNetworkService
     {

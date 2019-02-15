@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Flurl.Http;
 
-namespace Common.BL.Services
+namespace CommonLib.Services
 {
     public class JsonNetworkService<ErrorModel> : IJsonNetworkService<ErrorModel>
     {

@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Common.BL.Services;
 using Auth.Model.Exceptions;
+using CommonLib.Services;
 
 namespace Auth.BL.Services
 {

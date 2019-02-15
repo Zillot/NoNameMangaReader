@@ -1,4 +1,4 @@
-﻿namespace Custom.Model.Models
+﻿namespace CommonLib.Models
 {
     public enum CustomResponseType
     {

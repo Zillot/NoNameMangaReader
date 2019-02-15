@@ -1,38 +1,38 @@
 ﻿using System;
 
-namespace Common.Model.Exeptions
+namespace CommonLib.Models.Exeptions
 {
-    public class CustomException: Exception
+    public class NNMRException: Exception
     {
         public int? StatusCode { get; set; }
         public string ErrorCode { get; set; }
         public string ErrorMessage { get; set; }
         public string Detail { get; set; }
 
-        public CustomException()
+        public NNMRException()
         {
 
         }
 
-        public CustomException(string errorCode, string errorMessage)
+        public NNMRException(string errorCode, string errorMessage)
         {
             ErrorCode = errorCode;
             ErrorMessage = errorMessage;
         }
 
-        public CustomException(string errorCode, string errorMessage, string detail)
+        public NNMRException(string errorCode, string errorMessage, string detail)
             : this(errorCode, errorMessage)
         {
             Detail = detail;
         }
 
-        public CustomException(string errorCode, string errorMessage, int statusCode) 
+        public NNMRException(string errorCode, string errorMessage, int statusCode) 
             : this(errorCode, errorMessage)
         {
             StatusCode = statusCode;
         }
 
-        public CustomException(string errorCode, string errorMessage, string detail, int statusCode)
+        public NNMRException(string errorCode, string errorMessage, string detail, int statusCode)
             : this(errorCode, errorMessage)
         {
             Detail = detail;

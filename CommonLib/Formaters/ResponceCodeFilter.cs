@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Common.Controllers.Formaters
+namespace CommonLib.Formaters
 {
     public class ResponceCodeFilter
     {

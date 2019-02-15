@@ -17,8 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Balancer.BL\Balancer.BL.csproj" />
     <ProjectReference Include="..\Balancer.Model\Balancer.Model.csproj" />
-    <ProjectReference Include="..\Common.Controllers\Common.Controllers.csproj" />
-    <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
   </ItemGroup>
 
 </Project>

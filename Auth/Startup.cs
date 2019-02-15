@@ -1,5 +1,5 @@
 ﻿using Auth.Setups;
-using Common.Controllers.Formaters;
+using CommonLib.Formaters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

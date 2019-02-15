@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Custom.Model.Models
+namespace CommonLib.Models
 {
     public class CustomResponse
     {

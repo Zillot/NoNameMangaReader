@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Auth.BL.Services;
 using Auth.Model.DTOModels;
+using CommonLib.Attributes;
 
 namespace Auth.Controllers
 {
@@ -15,13 +16,15 @@ namespace Auth.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> UserLogin([FromBody]UserCredentialsDTO credentials)
+        [HaveSSH]
+        public string UserLogin([FromBody]UserCredentialsDTO credentials)
         {
             return _authService.Login(credentials);
         }
 
         [HttpPost]
-        public ActionResult<string> AppLogin([FromBody]AppCredentialsDTO credentials)
+        [HaveSSH]
+        public string AppLogin([FromBody]AppCredentialsDTO credentials)
         {
             return _authService.Login(credentials);
         }

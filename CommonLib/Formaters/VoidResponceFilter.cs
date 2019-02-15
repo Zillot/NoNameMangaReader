@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Common.Controllers.Formaters
+namespace CommonLib.Formaters
 {
     public class VoidResponceFilter
     {

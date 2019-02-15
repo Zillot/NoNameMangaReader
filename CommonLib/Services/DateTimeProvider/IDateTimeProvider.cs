@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.BL.Services
+namespace CommonLib.Services
 {
     public interface IDateTimeProvider
     {

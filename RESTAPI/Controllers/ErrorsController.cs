@@ -1,4 +1,4 @@
-﻿using Common.Model.Exeptions;
+﻿using CommonLib.Models.Exeptions;
 using Microsoft.AspNetCore.Mvc;
 using RESTAPI.Controllers.Base;
 
@@ -9,7 +9,7 @@ namespace RESTAPI.Controllers
         [HttpGet]
         public string Error(string errorCode, string errorText, int StatusCode)
         {
-            throw new CustomException(errorCode, errorText, StatusCode);
+            throw new NNMRException(errorCode, errorText, StatusCode);
         }
 
         [HttpGet]

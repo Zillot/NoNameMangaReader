@@ -1,8 +1,8 @@
-﻿using Common.Model.Exeptions;
+﻿using CommonLib.Models.Exeptions;
 
 namespace RESTAPI.Model.Exceptions
 {
-    public class TokenMissmatchException: CustomException
+    public class TokenMissmatchException: NNMRException
     {
         private static readonly string ERROR_CODE = "TM.1";
         private static readonly string MESSAGE = "Token missmatch";

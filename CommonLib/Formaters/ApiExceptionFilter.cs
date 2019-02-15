@@ -1,5 +1,5 @@
-﻿using Common.Model.Exeptions;
-using Custom.Model.Models;
+﻿using CommonLib.Models;
+using CommonLib.Models.Exeptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -7,7 +7,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading.Tasks;
 
-namespace Common.Controllers.Formaters
+namespace CommonLib.Formaters
 {
     public class ApiExceptionMiddleware
     {
@@ -38,10 +38,10 @@ namespace Common.Controllers.Formaters
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var eqEx = new CustomException();
-            if (exception is CustomException)
+            var eqEx = new NNMRException();
+            if (exception is NNMRException)
             {
-                eqEx = exception as CustomException;
+                eqEx = exception as NNMRException;
                 context.Response.StatusCode = eqEx.StatusCode != null ? (int)eqEx.StatusCode : 400;
             }
             else

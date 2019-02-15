@@ -1,8 +1,8 @@
-﻿using Common.Model.Exeptions;
+﻿using CommonLib.Models.Exeptions;
 
 namespace Auth.Model.Exceptions
 {
-    public class CredentialsException : CustomException
+    public class CredentialsException : NNMRException
     {
         private static readonly string ERROR_CODE = "C.1";
         private static readonly string MESSAGE = "Credentials error";

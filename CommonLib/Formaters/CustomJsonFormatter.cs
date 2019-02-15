@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Custom.Model.Models;
+using CommonLib.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Common.Controllers.Formaters
+namespace CommonLib.Formaters
 {
     public class CustomJsonFormatter : TextOutputFormatter
     {

@@ -1,6 +1,6 @@
-﻿namespace Common.Model.Exeptions
+﻿namespace CommonLib.Models.Exeptions
 {
-    public class UnhandeledException: CustomException
+    public class UnhandeledException: NNMRException
     {
         private static readonly string ERROR_CODE = "0";
         private static readonly string MESSAGE = "unhandled exception";
