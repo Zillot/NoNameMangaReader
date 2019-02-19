@@ -1,8 +1,5 @@
 ﻿using CommonLib.Models.Exeptions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace CommonLib.Attributes
 {
@@ -21,7 +18,6 @@ namespace CommonLib.Attributes
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "APITests/IsAlive",
+      "launchUrl": "api/APITests/IsAlive",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,7 +19,7 @@
     "RESTAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "APITests/IsAlive",
+      "launchUrl": "api/APITests/IsAlive",
       "applicationUrl": "http://localhost:50001/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

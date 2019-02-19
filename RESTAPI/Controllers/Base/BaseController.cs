@@ -7,11 +7,11 @@ using System.Security.Claims;
 
 namespace RESTAPI.Controllers.Base
 {
-    public abstract class BaseController : Controller
+    public static class ControllerBaseExtensions
     {
-        public Claim GetClaimIfExist(string key)
+        public static Claim GetClaimIfExist(this ControllerBase ct, string key)
         {
-            var claimItem = User.Claims.FirstOrDefault(x => x.Type == key);
+            var claimItem = ct.User.Claims.FirstOrDefault(x => x.Type == key);
             if (claimItem == null)
             {
                 throw new TokenMissmatchException();
@@ -20,11 +20,11 @@ namespace RESTAPI.Controllers.Base
             return claimItem;
         }
 
-        public T GetClaimValue<T>(string key)
+        public static T GetClaimValue<T>(this ControllerBase ct, string key)
         {
             try
             {
-                return (T)Convert.ChangeType(GetClaimIfExist(key), typeof(T));
+                return (T)Convert.ChangeType(GetClaimIfExist(ct, key), typeof(T));
             }
             catch (Exception ex)
             {
@@ -33,9 +33,9 @@ namespace RESTAPI.Controllers.Base
             }
         }
 
-        protected string getRawBody()
+        public static string GetRawBody(this ControllerBase ct)
         {
-            using (var streamReader = new StreamReader(Request.Body))
+            using (var streamReader = new StreamReader(ct.Request.Body))
             {
                 return streamReader.ReadToEnd();
             }
