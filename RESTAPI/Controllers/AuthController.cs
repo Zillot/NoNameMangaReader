@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RESTAPI.Controllers.Base;
 using System.Threading.Tasks;
 using CommonLib.Services;
+using RESTAPI.Controllers.Base;
 
 namespace RESTAPI.Controllers
 {
-    public class AuthController : BaseController
+    [Produces("application/json")]
+    [Route("api/[controller]/[action]")]
+    public class AuthController : ControllerBase
     {
         public IDummyNetworkService _dummyNetworkService { get; set; }
 
@@ -20,13 +22,13 @@ namespace RESTAPI.Controllers
         [HttpPost]
         public async Task<string> UserLogin(object emptyBody)
         {
-            return await _dummyNetworkService.Post("auth/userLogin", null, getRawBody());
+            return await _dummyNetworkService.Post("auth/userLogin", null, this.GetRawBody());
         }
 
         [HttpPost]
         public async Task<string> AppLogin(object jsonModel)
         {
-            return await _dummyNetworkService.Post("auth/appLogin", null, getRawBody());
+            return await _dummyNetworkService.Post("auth/appLogin", null, this.GetRawBody());
         }
     }
 }

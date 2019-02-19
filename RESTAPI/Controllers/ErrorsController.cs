@@ -1,11 +1,11 @@
 ﻿using CommonLib.Models.Exeptions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RESTAPI.Controllers.Base;
 
 namespace RESTAPI.Controllers
 {
-    public class ErrorsController : BaseController
+    [Produces("application/json")]
+    [Route("api/[controller]/[action]")]
+    public class ErrorsController : ControllerBase
     {
         [HttpGet]
         public string Error(string errorCode, string errorText, int StatusCode)
