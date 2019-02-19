@@ -16,12 +16,14 @@ namespace RESTAPI
         private IConfiguration _configuration { get; set; }
         private DependencyInjectionService _dependencyInjectionService { get; set; }
         private JwtSetups _jwtSetups { get; set; }
+        private SwaggerSetups _swaggerSetups { get; set; }
 
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
             _dependencyInjectionService = new DependencyInjectionService();
             _jwtSetups = new JwtSetups();
+            _swaggerSetups = new SwaggerSetups();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,21 +31,21 @@ namespace RESTAPI
         {
             _dependencyInjectionService.SetupServices(services);
             _jwtSetups.SetupJwt(services, _configuration);
+            _swaggerSetups.SetupSwaggerServices(services);
 
             services.AddScoped<HaveSSHFilter>();
 
             services.AddCors();
 
             services.AddMvc(options =>
-            {
-                options.OutputFormatters.RemoveType<TextOutputFormatter>();
-                options.OutputFormatters.RemoveType<JsonOutputFormatter>();
-                options.OutputFormatters.RemoveType<StringOutputFormatter>();
+                {
+                    options.OutputFormatters.RemoveType<TextOutputFormatter>();
+                    options.OutputFormatters.RemoveType<JsonOutputFormatter>();
+                    options.OutputFormatters.RemoveType<StringOutputFormatter>();
 
-                options.OutputFormatters.Add(new RPJsonFormatter());
-            });
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                    options.OutputFormatters.Add(new RPJsonFormatter());
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,9 +76,11 @@ namespace RESTAPI
 
             app.UseMiddleware(typeof(ApiExceptionMiddleware));
 
+            _swaggerSetups.SetupSwaggerApp(app);
+            
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "default", template: "{controller}/{action}");
+                routes.MapRoute(name: "default", template: "api/{controller}/{action}");
             });
         }
     }

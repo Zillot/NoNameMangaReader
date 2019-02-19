@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RESTAPI</name>
+    </assembly>
+    <members>
+        <member name="M:RESTAPI.Controllers.APITestsController.IsAlive">
+            <summary>
+            Check if server alive
+            </summary>
+            <returns>String with status</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.GetVoid">
+            <summary>
+            Response with no return type
+            </summary>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.GetTest">
+            <summary>
+            Response for GET
+            </summary>
+            <returns>Static string</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.GetModel">
+            <summary>
+            Response of model for GET
+            </summary>
+            <returns>Model with static values</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.GetMyVlaue(System.String)">
+            <summary>
+            Response for GET with params
+            </summary>
+            <param name="value">Parameter of request</param>
+            <returns>Static string in format "here is your value {value}"</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.PostTest">
+            <summary>
+            Response for POST
+            </summary>
+            <returns>Static string</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.PostTestWithBody(RESTAPI.Model.Models.PostTestObject)">
+            <summary>
+            Response for POST with body
+            </summary>
+            <param name="model">Body of request</param>
+            <returns>Static string in format "your name is {model.Name} and key is {model.Key}"</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.PostTestWithBodyAndParams(System.String,RESTAPI.Model.Models.PostTestObject)">
+            <summary>
+            Response for POST with body and parameter
+            </summary>
+            <param name="value">Parameter of request</param>
+            <param name="model">Body of request</param>
+            <returns>Static string in format "your name is {model.Name} and key is {model.Key}, and the value is {value}"</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.IsAuthorized">
+            <summary>
+            Response to check authorization
+            </summary>
+            <returns>Static string</returns>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.CustomError">
+            <summary>
+            Response to check errors №1, custom error source
+            </summary>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.ClaimError">
+            <summary>
+            Response to check errors №2, specific error source
+            </summary>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.UnError">
+            <summary>
+            Response to check errors №3, custom unexpected error
+            </summary>
+        </member>
+        <member name="M:RESTAPI.Controllers.APITestsController.UnhandeledError">
+            <summary>
+            Response to check errors №4, system unexpected error
+            </summary>
+            <response code="500">unhandled exception</response>
+        </member>
+    </members>
+</doc>

@@ -5,6 +5,11 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\PROJECTS_\NoNameMangaReader\RESTAPI\RESTAPI\RESTAPI.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591;0168</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Services\**" />
     <Content Remove="Services\**" />
@@ -15,6 +20,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
