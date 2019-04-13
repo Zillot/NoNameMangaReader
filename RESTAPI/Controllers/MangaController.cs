@@ -3,7 +3,7 @@ using RESTAPI.Controllers.Base;
 
 namespace RESTAPI.Controllers
 {
-    public class MangaController : BaseController
+    public class MangaController : ControllerBase
     {
         [HttpGet]
         public dynamic Get(int id)

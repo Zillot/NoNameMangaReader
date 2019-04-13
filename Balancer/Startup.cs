@@ -52,9 +52,9 @@ namespace Balancer
             }
 
             //respponce status manager
-            app.Use(ResponceCodeFilter.ManageResponceCodes);
+            app.Use(ResponseCodeFilter.ManageResponseCodes);
             //void respponce manager
-            app.Use(VoidResponceFilter.ManageVoidResponce);
+            app.Use(VoidResponseFilter.ManageVoidResponse);
 
             app.UseMiddleware(typeof(ApiExceptionMiddleware));
 

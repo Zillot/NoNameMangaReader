@@ -38,11 +38,12 @@ namespace CommonLib.Formaters
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var eqEx = new NNMRException();
+            NNMRException eqEx = null;
+
             if (exception is NNMRException)
             {
                 eqEx = exception as NNMRException;
-                context.Response.StatusCode = eqEx.StatusCode != null ? (int)eqEx.StatusCode : 400;
+                context.Response.StatusCode = eqEx.StatusCode ?? 400;
             }
             else
             {
