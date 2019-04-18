@@ -8,11 +8,11 @@ namespace WebParser.BL.Services.ParseOrders
 {
     public class ParseOrdersService: IParseOrdersService
     {
-        private static List<PageParseOrderDTO> queueOfOrdersToParse { get; set; }
+        private static List<PageParseOrderDTO> _queueOfOrdersToParse { get; set; }
 
         public ParseOrdersService()
         {
-            queueOfOrdersToParse = new List<PageParseOrderDTO>();
+            _queueOfOrdersToParse = new List<PageParseOrderDTO>();
         }
 
         public PageParseOrderDTO TryToStartNewParse(string url, OrderPriority priority)
@@ -36,9 +36,9 @@ namespace WebParser.BL.Services.ParseOrders
                 Priority = priority
             };
 
-            lock (queueOfOrdersToParse)
+            lock (_queueOfOrdersToParse)
             {
-                queueOfOrdersToParse.Add(newParseOrder);
+                _queueOfOrdersToParse.Add(newParseOrder);
             }
 
             return newParseOrder;
@@ -46,23 +46,23 @@ namespace WebParser.BL.Services.ParseOrders
 
         public PageParseOrderDTO GetParseOrderByUrl(string url)
         {
-            lock (queueOfOrdersToParse)
+            lock (_queueOfOrdersToParse)
             {
-                return queueOfOrdersToParse.FirstOrDefault(x => x.Url == url);
+                return _queueOfOrdersToParse.FirstOrDefault(x => x.Url == url);
             }
         }
 
         public PageParseOrderDTO GetParseOrderByGUID(string orderGUID)
         {
-            lock (queueOfOrdersToParse)
+            lock (_queueOfOrdersToParse)
             {
-                return queueOfOrdersToParse.FirstOrDefault(x => x.OrderGUID == orderGUID);
+                return _queueOfOrdersToParse.FirstOrDefault(x => x.OrderGUID == orderGUID);
             }
         }
 
         public PageParseOrderDTO PopNextOrderFromQueue()
         {
-            lock (queueOfOrdersToParse)
+            lock (_queueOfOrdersToParse)
             {
                 var lisOrPriorities = new List<OrderPriority>()
                 {
@@ -71,11 +71,11 @@ namespace WebParser.BL.Services.ParseOrders
 
                 foreach (var priority in lisOrPriorities)
                 {
-                    var nextOrder = queueOfOrdersToParse.FirstOrDefault(x => x.Priority == priority);
+                    var nextOrder = _queueOfOrdersToParse.FirstOrDefault(x => x.Priority == priority);
 
                     if (nextOrder != null)
                     {
-                        queueOfOrdersToParse.Remove(nextOrder);
+                        _queueOfOrdersToParse.Remove(nextOrder);
                         return nextOrder;
                     }
                 }

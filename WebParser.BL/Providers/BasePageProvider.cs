@@ -24,7 +24,7 @@ namespace WebParser.BL.Providers
             _docs.Clear();
         }
 
-        protected HtmlDocument getDoc(string key)
+        protected HtmlDocument GetDoc(string key)
         {
             if (_docs.ContainsKey(key))
             {
@@ -47,12 +47,12 @@ namespace WebParser.BL.Providers
 
         public HtmlNode GetXPath(string docKey, string xPath)
         {
-            return getDoc(docKey).DocumentNode.SelectSingleNode(xPath);
+            return GetDoc(docKey).DocumentNode.SelectSingleNode(xPath);
         }
 
         public HtmlNodeCollection ListXPath(string docKey, string xPath)
         {
-            return getDoc(docKey).DocumentNode.SelectNodes(xPath);
+            return GetDoc(docKey).DocumentNode.SelectNodes(xPath);
         }
     }
 }

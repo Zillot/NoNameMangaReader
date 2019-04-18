@@ -24,10 +24,10 @@ namespace WebParser.Controllers
         [HttpGet]
         public async Task GetData()
         {
-            _pageParserService.ProccessOrder(new PageParseOrderDTO()
+            await Task.Run(() => _pageParserService.ProccessOrder(new PageParseOrderDTO()
             {
                 Url = "http://readmanga.me/ohotniki_za_energiei"
-            });
+            }));
         }
     }
 }

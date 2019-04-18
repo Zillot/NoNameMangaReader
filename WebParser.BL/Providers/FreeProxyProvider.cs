@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WebParser.Model.Models;
 using System.Linq;
+using WebParser.BL.Services.PageParser;
 
 namespace WebParser.BL.Providers
 {
@@ -9,9 +10,11 @@ namespace WebParser.BL.Providers
     {
         private static readonly string xLines = "//*[@id='proxylisttable']/tbody/tr";
 
+        public FreeProxyProvider(IProxyService proxyService) : base(proxyService) { }
+
         public override async Task<List<ProxyServer>> ProccessUrl(string pageUrl)
         {
-            getDoc("ProxyPage").LoadHtml(await GetHtml(pageUrl));
+            GetDoc("ProxyPage").LoadHtml(await GetHtml(pageUrl));
 
             var proxyNodes = ListXPath("ProxyPage", xLines);
             var proxys = new List<ProxyServer>();

@@ -6,21 +6,21 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace WebParser.DL.Repositories.Base
+namespace CommonLib.Redis
 {
     public abstract class RedisBaseRepository : IRedisBaseRepository
     {
         protected static RedisContext _redisContext { get; set; }
 
-        protected abstract string repositoryKey { get; }
+        protected abstract string _repositoryKey { get; }
         protected IConfiguration _configuration { get; set; }
 
-        private string workingAreaName { get; set; }
+        private string _workingAreaName { get; set; }
 
         public RedisBaseRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            workingAreaName = "main";
+            _workingAreaName = "main";
 
             if (_redisContext == null)
             {
@@ -32,13 +32,13 @@ namespace WebParser.DL.Repositories.Base
 
         public void ClearAllData()
         {
-            var keysToRemove = _redisContext.Cache.GetKeysByTag(new[] { workingAreaName });
+            var keysToRemove = _redisContext.Cache.GetKeysByTag(new[] { _workingAreaName });
             if (keysToRemove != null)
             {
                 foreach (var keyPair in keysToRemove)
                 {
                     var keys = keyPair.Split(":$_->_$:");
-                    _redisContext.Cache.RemoveTagsFromHashField(keys[0], keys[1], new[] { workingAreaName });
+                    _redisContext.Cache.RemoveTagsFromHashField(keys[0], keys[1], new[] { _workingAreaName });
                     _redisContext.Cache.RemoveHashed(keys[0], keys[1]);
                 }
 
@@ -48,44 +48,44 @@ namespace WebParser.DL.Repositories.Base
 
         public void SetIntegrationTestMode()
         {
-            workingAreaName = "IntegrationTests";
+            _workingAreaName = "IntegrationTests";
         }
 
         public void SetWorkingArea(string newWorkingAreaName)
         {
-            workingAreaName = newWorkingAreaName;
+            _workingAreaName = newWorkingAreaName;
         }
 
         #region single object: Cache
         protected void save(string key, object value, int secondsAlive)
         {
             _redisContext.Cache.SetObject(
-                $"{workingAreaName}:{key}",
+                $"{_workingAreaName}:{key}",
                 value,
-                new[] { workingAreaName },
+                new[] { _workingAreaName },
                 TimeSpan.FromSeconds(secondsAlive));
         }
 
         protected T get<T>(string key)
         {
             return _redisContext.Cache.GetObject<T>(
-                $"{workingAreaName}:{key}");
+                $"{_workingAreaName}:{key}");
         }
         #endregion single object: Cache
 
         #region list of object: Hashed
         protected List<string> findAllHashesByPattern(string pattern)
         {
-            var regex = new Regex($"{workingAreaName}:{pattern}.+:hash");
+            var regex = new Regex($"{_workingAreaName}:{pattern}.+:hash");
 
             //all keys will be in format <workingAreaName>:<ACTUAL KEY>:hash:$_->_$:<FIELD ID>
-            var allKeys = _redisContext.Cache.GetKeysByTag(new[] { workingAreaName });
+            var allKeys = _redisContext.Cache.GetKeysByTag(new[] { _workingAreaName });
 
             return allKeys
                 .Where(x => regex.IsMatch(x))
                 .Select(x => x
                     .Replace($":hash", "")
-                    .Replace($"{workingAreaName}:{pattern}", "")
+                    .Replace($"{_workingAreaName}:{pattern}", "")
                     .Split(":$_->_$:")[0])
                 .Distinct()
                 .ToList();
@@ -94,23 +94,23 @@ namespace WebParser.DL.Repositories.Base
         protected void saveHashed(string groupName, string key, object value, int secondsAlive)
         {
             _redisContext.Cache.SetHashed(
-                $"{workingAreaName}:{groupName}",
+                $"{_workingAreaName}:{groupName}",
                 key,
                 value,
-                new[] { workingAreaName },
+                new[] { _workingAreaName },
                 TimeSpan.FromSeconds(secondsAlive));
         }
 
         protected IDictionary<string, T> getHashed<T>(string groupName)
         {
             return _redisContext.Cache.GetHashedAll<T>(
-                $"{workingAreaName}:{groupName}");
+                $"{_workingAreaName}:{groupName}");
         }
 
         protected T getHashed<T>(string groupName, string key)
         {
             return _redisContext.Cache.GetHashed<T>(
-                $"{workingAreaName}:{groupName}",
+                $"{_workingAreaName}:{groupName}",
                 key);
         }
         #endregion list of object: Hashed

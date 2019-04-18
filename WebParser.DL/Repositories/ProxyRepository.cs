@@ -1,35 +1,35 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommonLib.Redis;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using WebParser.DL.Repositories.Base;
 using WebParser.Model.Models;
 
 namespace WebParser.DL.Repositories
 {
     public class ProxyRepository : RedisBaseRepository, IProxyRepository
     {
-        protected override string repositoryKey { get { return "proxyRepository"; } }
+        protected override string _repositoryKey { get { return "proxyRepository"; } }
 
         public ProxyRepository(IConfiguration configuration) : base(configuration) { }
 
         public DateTime? GetLastProxyUpdate()
         {
-            return get<DateTime?>($"{repositoryKey}:LastProxyUpdate");
+            return get<DateTime?>($"{_repositoryKey}:LastProxyUpdate");
         }
 
         public void ProxyUpdateTrigger()
         {
-            save($"{repositoryKey}:LastProxyUpdate", DateTime.Now, 600);
+            save($"{_repositoryKey}:LastProxyUpdate", DateTime.Now, 600);
         }
 
         public void Save(List<ProxyServer> proxyServers)
         {
-            save($"{repositoryKey}:proxy", proxyServers, 600000);
+            save($"{_repositoryKey}:proxy", proxyServers, 600000);
         }
 
         public List<ProxyServer> Get()
         {
-            return get<List<ProxyServer>>($"{repositoryKey}:proxy");
+            return get<List<ProxyServer>>($"{_repositoryKey}:proxy");
         }
     }
 }

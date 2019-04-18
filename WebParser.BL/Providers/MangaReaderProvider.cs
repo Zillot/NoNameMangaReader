@@ -23,7 +23,7 @@ namespace WebParser.BL.Providers
 
         public override async Task<Manga> ProccessUrl(string pageUrl)
         {
-            getDoc("MangaPage").LoadHtml(await GetHtml(pageUrl));
+            GetDoc("MangaPage").LoadHtml(await GetHtml(pageUrl));
 
             var mangaNode = GetXPath("MangaPage", xName);
             var mangaNameRus = mangaNode.ChildNodes.FirstOrDefault(x => x.HasClass("name")).InnerText;

@@ -1,4 +1,4 @@
-﻿namespace WebParser.DL.Repositories.Base
+﻿namespace CommonLib.Redis
 {
     public interface IRedisBaseRepository
     {

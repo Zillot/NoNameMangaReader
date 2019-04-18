@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CommonLib.Redis;
+using System;
 using System.Collections.Generic;
-using WebParser.DL.Repositories.Base;
 using WebParser.Model.Models;
 
 namespace WebParser.DL.Repositories
