@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj" />
     <ProjectReference Include="..\WebParser.DL\WebParser.DL.csproj" />
     <ProjectReference Include="..\WebParser.Model\WebParser.Model.csproj" />
   </ItemGroup>

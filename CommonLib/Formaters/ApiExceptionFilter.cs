@@ -1,9 +1,6 @@
 ﻿using CommonLib.Models;
 using CommonLib.Models.Exeptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading.Tasks;
 
@@ -11,19 +8,16 @@ namespace CommonLib.Formaters
 {
     public class ApiExceptionMiddleware
     {
+        private static ResponseFactory _responseFactory = new ResponseFactory(CustomResponseType.error);
         private readonly RequestDelegate next;
 
-        public readonly static JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-
+        /// <summary />
         public ApiExceptionMiddleware(RequestDelegate next)
         {
             this.next = next;
         }
 
+        /// <summary />
         public async Task Invoke(HttpContext context)
         {
             try
@@ -36,14 +30,16 @@ namespace CommonLib.Formaters
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        /// <summary />
+        private Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
             NNMRException eqEx = null;
 
             if (exception is NNMRException)
             {
                 eqEx = exception as NNMRException;
-                context.Response.StatusCode = eqEx.StatusCode ?? 400;
+                httpContext.Response.StatusCode = eqEx.StatusCode ?? 400;
+                //bad request as default key for any manually trowed exception
             }
             else
             {
@@ -52,21 +48,18 @@ namespace CommonLib.Formaters
                 string stack = exception.StackTrace;
                 eqEx.Detail = $"{msg} {stack}";
 
-                context.Response.StatusCode = 500;
+                httpContext.Response.StatusCode = 500;
             }
 
-            var response = new CustomResponse(CustomResponseType.error) {
-                Response = new {
-                    eqEx.ErrorCode,
-                    eqEx.ErrorMessage,
-                    eqEx.Detail
-                }
+            var detail = string.IsNullOrWhiteSpace(eqEx.Detail) ? null : eqEx.Detail;
+            var response = new
+            {
+                eqEx.ErrorCode,
+                eqEx.ErrorMessage,
+                detail
             };
 
-            var result = new JsonResult(response, CustomJsonFormatter.JsonSerializerSettings);
-
-            context.Response.ContentType = "application/json";
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(result.Value, JsonSerializerSettings));
+            return _responseFactory.WriteFullResponseAsync(httpContext, response);
         }
     }
 }

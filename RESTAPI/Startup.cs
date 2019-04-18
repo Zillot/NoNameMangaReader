@@ -43,7 +43,7 @@ namespace RESTAPI
                     options.OutputFormatters.RemoveType<JsonOutputFormatter>();
                     options.OutputFormatters.RemoveType<StringOutputFormatter>();
 
-                    options.OutputFormatters.Add(new RPJsonFormatter());
+                    options.OutputFormatters.Add(new JsonFormatter());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

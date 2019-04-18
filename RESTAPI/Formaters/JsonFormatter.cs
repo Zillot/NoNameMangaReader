@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using CommonLib.Formaters;
 using CommonLib.Models;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 
-namespace CommonLib.Formaters
+namespace RESTAPI.Formaters
 {
-    public class CustomJsonFormatter : TextOutputFormatter
+    public class JsonFormatter : TextOutputFormatter
     {
         private static ResponseFactory _responseFactory = new ResponseFactory(CustomResponseType.success);
 
-        public CustomJsonFormatter()
+        /// <summary />
+        public JsonFormatter()
         {
             var types = MediaTypeHeaderValue.ParseList(new List<string>()
             {
@@ -37,7 +39,7 @@ namespace CommonLib.Formaters
         /// <summary />
         public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
         {
-            return _responseFactory.WriteSealedResponseAsync(context.HttpContext, context.Object);
+            return _responseFactory.WriteFullResponseAsync(context.HttpContext, context.Object);
         }
     }
 }
