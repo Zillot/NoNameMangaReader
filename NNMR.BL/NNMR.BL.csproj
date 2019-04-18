@@ -6,7 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Base\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NNMR.DL\NNMR.DL.csproj" />
+    <ProjectReference Include="..\WebParser.Model\WebParser.Model.csproj" />
   </ItemGroup>
 
 </Project>

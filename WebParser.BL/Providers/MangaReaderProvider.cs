@@ -25,12 +25,12 @@ namespace WebParser.BL.Providers
         {
             GetDoc("MangaPage").LoadHtml(await GetHtml(pageUrl));
 
-            var mangaNode = GetXPath("MangaPage", xName);
-            var mangaNameRus = mangaNode.ChildNodes.FirstOrDefault(x => x.HasClass("name")).InnerText;
-            var mangaNameEng = mangaNode.ChildNodes.FirstOrDefault(x => x.HasClass("eng-name")).InnerText;
-            var mangaNameOrg = mangaNode.ChildNodes.FirstOrDefault(x => x.HasClass("original-name")).InnerText;
+            var nameNode = GetXPath("MangaPage", xName);
+            var nameRus = nameNode.ChildNodes.FirstOrDefault(x => x.HasClass("name")).InnerText;
+            var nameEng = nameNode.ChildNodes.FirstOrDefault(x => x.HasClass("eng-name")).InnerText;
+            var nameOrg = nameNode.ChildNodes.FirstOrDefault(x => x.HasClass("original-name")).InnerText;
 
-            var mangaScore = GetXPath("MangaPage", xScore)
+            var score = GetXPath("MangaPage", xScore)
                 .Attributes.FirstOrDefault(x => x.Name == "data-score")?.Value;
 
             var description = GetXPath("MangaPage", xPoster)
@@ -39,16 +39,15 @@ namespace WebParser.BL.Providers
             var posterUrl = GetXPath("MangaPage", xDescription)
                 .Attributes[1]?.Value;
 
-            var mangaNodes = GetXPath("MangaPage", xInfo);
-            var items = mangaNodes.ChildNodes.Where(x => x.Name == "p");
+            var infoNodes = GetXPath("MangaPage", xInfo);
+            var items = infoNodes.ChildNodes.Where(x => x.Name == "p");
             var volumes = GetMangaInfo(items, "Томов");
             var genre = GetMangaInfo(items, "Жанры");
             var categories = GetMangaInfo(items, "Категории");
             var author = GetMangaInfo(items, "Автор");
-            var pushlishYear = GetMangaInfo(items, "Год выпуска");
+            var pubshlishYear = GetMangaInfo(items, "Год выпуска");
             var publisher = GetMangaInfo(items, "Издательство");
             var magazines = GetMangaInfo(items, "Журналы");
-
             //will have value like over or continuing
             var state = GetMangaInfo(items, "Перевод");
             var translators = GetMangaInfo(items, "Переводчики");
@@ -67,7 +66,29 @@ namespace WebParser.BL.Providers
                 }
             };
 
-            return null;
+            return new Manga()
+            {
+                PosterUrl = posterUrl,
+
+                NameRus = nameRus,
+                NameEng = nameEng,
+                NameOrg = nameOrg,
+                
+                Description = description,
+                Score = float.Parse(score),
+
+                Volumes =volumes,
+                Genre = genre,
+                Categories = categories,
+                Author = author,
+                PushlishYear = pubshlishYear,
+                Publisher = publisher,
+                Magazines = magazines,
+                State = state,
+                Translators = translators,
+
+                Chapters = chapters
+            };
         }
 
         public string GetMangaInfo(IEnumerable<HtmlNode> nodes, string key)

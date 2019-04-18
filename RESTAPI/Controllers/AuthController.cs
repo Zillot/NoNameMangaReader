@@ -9,7 +9,7 @@ namespace RESTAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class AuthController : ControllerBase
     {
-        public IDummyNetworkService _dummyNetworkService { get; set; }
+        private IDummyNetworkService _dummyNetworkService { get; set; }
 
         public AuthController(IDummyNetworkService dummyNetworkService)
         {

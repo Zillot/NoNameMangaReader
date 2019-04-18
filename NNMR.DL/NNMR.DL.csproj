@@ -7,7 +7,11 @@
   <ItemGroup>
     <Folder Include="DBModels\" />
     <Folder Include="Base\" />
-    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj" />
+    <ProjectReference Include="..\NNMR.Model\NNMR.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="DTOModels\" />
-    <Folder Include="DMModels\" />
   </ItemGroup>
 
 </Project>

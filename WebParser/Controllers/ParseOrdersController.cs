@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebParser.BL.Services.PageParser;
 using WebParser.BL.Services.ParseOrders;
@@ -22,11 +23,15 @@ namespace WebParser.Controllers
         }
 
         [HttpGet]
-        public async Task GetData()
+        public async Task ProccessManga(string url)
         {
             await Task.Run(() => _pageParserService.ProccessOrder(new PageParseOrderDTO()
             {
-                Url = "http://readmanga.me/ohotniki_za_energiei"
+                Url = url,
+                PageProvider = "ReadManga",
+                OrderCreated = DateTime.Now,
+                OrderGUID = Guid.NewGuid().ToString(),
+                Priority= Model.Enums.OrderPriority.Hight
             }));
         }
     }
