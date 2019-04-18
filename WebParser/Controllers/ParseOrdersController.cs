@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebParser.BL.Services.PageParser;
 using WebParser.BL.Services.ParseOrders;
 using WebParser.Model.DTOModels;
-using WebParser.Model.Enums;
 
 namespace WebParser.Controllers
 {
@@ -26,7 +24,7 @@ namespace WebParser.Controllers
         [HttpGet]
         public async Task GetData()
         {
-            await _pageParserService.ProccessOrder(new PageParseOrderDTO()
+            _pageParserService.ProccessOrder(new PageParseOrderDTO()
             {
                 Url = "http://readmanga.me/ohotniki_za_energiei"
             });

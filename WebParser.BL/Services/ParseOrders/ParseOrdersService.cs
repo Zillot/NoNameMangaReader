@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using WebParser.BL.Services.PageParser;
 using WebParser.Model.DTOModels;
 using WebParser.Model.Enums;
 
@@ -9,15 +8,10 @@ namespace WebParser.BL.Services.ParseOrders
 {
     public class ParseOrdersService: IParseOrdersService
     {
-        private IPageParserService _pageParserService { get; set; }
-
         private static List<PageParseOrderDTO> queueOfOrdersToParse { get; set; }
 
-        public ParseOrdersService(
-            IPageParserService pageParserService)
+        public ParseOrdersService()
         {
-            _pageParserService = pageParserService;
-
             queueOfOrdersToParse = new List<PageParseOrderDTO>();
         }
 
