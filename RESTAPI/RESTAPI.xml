@@ -82,5 +82,14 @@
             </summary>
             <response code="500">unhandled exception</response>
         </member>
+        <member name="M:RESTAPI.Formaters.JsonFormatter.#ctor">
+            <summary />
+        </member>
+        <member name="M:RESTAPI.Formaters.JsonFormatter.CanWriteResult(Microsoft.AspNetCore.Mvc.Formatters.OutputFormatterCanWriteContext)">
+            <summary />
+        </member>
+        <member name="M:RESTAPI.Formaters.JsonFormatter.WriteResponseBodyAsync(Microsoft.AspNetCore.Mvc.Formatters.OutputFormatterWriteContext,System.Text.Encoding)">
+            <summary />
+        </member>
     </members>
 </doc>

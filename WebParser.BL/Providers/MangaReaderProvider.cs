@@ -48,7 +48,7 @@ namespace WebParser.BL.Providers
             var pubshlishYear = GetMangaInfo(items, "Год выпуска");
             var publisher = GetMangaInfo(items, "Издательство");
             var magazines = GetMangaInfo(items, "Журналы");
-            //will have value like over or continuing
+            //will have value like: over, continuing, translate, etc
             var state = GetMangaInfo(items, "Перевод");
             var translators = GetMangaInfo(items, "Переводчики");
 
@@ -62,7 +62,7 @@ namespace WebParser.BL.Providers
                 }
                 catch (Exception ex)
                 {
-
+                    //TODO retry logic
                 }
             };
 

@@ -22,7 +22,7 @@ namespace CommonLib.Redis
             _configuration = configuration;
             _workingAreaName = "main";
 
-            if (_redisContext == null)
+            if (_redisContext != null)
             {
                 _redisContext = new RedisContext(
                     configuration["RedisConnectionLine"],

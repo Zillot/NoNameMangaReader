@@ -19,7 +19,7 @@ namespace WebParser.BL.Services.PageParser
         {
             if (_proxyRepository.GetLastProxyUpdate() != null)
             {
-                var provider = new FreeProxyProvider();
+                var provider = new FreeProxyProvider(this);
                 var newProxy = provider.ProccessUrl("https://free-proxy-list.net").Result;
 
                 _proxyRepository.Save(newProxy);

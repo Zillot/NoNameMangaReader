@@ -1,7 +1,8 @@
 ﻿using CommonLib.Models.Exeptions;
 using CommonLib.Services;
 using NNMR.DL.Repositories;
-using NNMR.Model.DMModels;
+using NNMR.Model.DTOModels;
+using NNMR.Models.DBModels;
 
 namespace NNMR.BL.Services
 {
@@ -21,9 +22,9 @@ namespace NNMR.BL.Services
             _dummyNetworkService.SetBaseUri("http://localhost:51005/");
         }
 
-        public DMManga GetManga(string url)
+        public MangaDTO GetManga(string url)
         {
-            var manga = _mangaRepository.FirstOrDefault(x => x.Url == url);
+            var manga = _mangaRepository.FirstOrDefault(x => x.URL == url);
             if (manga == null)
             {
                 return ProcessManga(manga);
@@ -35,7 +36,7 @@ namespace NNMR.BL.Services
             }
         }
 
-        public DMManga GetManga(int id)
+        public MangaDTO GetManga(int id)
         {
             var manga = _mangaRepository.FirstOrDefault(x => x.Id == id);
             if (manga != null)
@@ -48,9 +49,9 @@ namespace NNMR.BL.Services
             }
         }
 
-        public DMManga ProcessManga(DMManga manga)
+        public MangaDTO ProcessManga(MangaDB manga)
         {
-            return null;
+            return MangaDTO.FromDB(manga);
         }
     }
 }

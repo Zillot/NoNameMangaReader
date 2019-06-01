@@ -13,7 +13,7 @@ namespace WebParser.Controllers
     {
         private IParseOrdersService _parseOrdersService { get; set; }
         private IPageParserService _pageParserService { get; set; }
-
+        
         public ParseOrdersController(
             IParseOrdersService parseOrdersService,
             IPageParserService pageParserService)

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace CommonLib.EF
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T, Context>
     {
         bool IsExist(Func<T, bool> predicat);
         T Find(int Id);
@@ -13,6 +13,8 @@ namespace CommonLib.EF
         T FirstOrDefault();
 
         int Count(Expression<Func<T, bool>> predicate);
+
+        IEnumerable<T> ToList();
 
         T Add(T entity);
         IEnumerable<T> Add(IEnumerable<T> entities);
