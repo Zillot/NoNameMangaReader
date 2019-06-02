@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using Auth.Model.Exceptions;
 using CommonLib.Services;
+using CommonLib.Models.DTOModels;
 
 namespace Auth.BL.Services
 {

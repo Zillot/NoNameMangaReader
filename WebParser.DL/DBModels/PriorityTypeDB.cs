@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonLib.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebParser.DL.DBModels
 {
     [Table("PriorityType")]
-    public class PriorityTypeDB
+    public class PriorityTypeDB : IBaseDBModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

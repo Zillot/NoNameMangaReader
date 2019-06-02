@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DMModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj" />
   </ItemGroup>
 

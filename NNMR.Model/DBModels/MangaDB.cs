@@ -1,10 +1,12 @@
-﻿using System;
+﻿using CommonLib.Models;
+using CommonLib.Models.DTOModels;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NNMR.Models.DBModels
 {
     [Table("Manga")]
-    public class MangaDB
+    public class MangaDB: IBaseDBModel
     {
         public int Id { get; set; }
         public string NameENG { get; set; }
@@ -13,5 +15,13 @@ namespace NNMR.Models.DBModels
 
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
+
+        public static MangaDTO FromDB(MangaDB manga)
+        {
+            return new MangaDTO()
+            {
+                NameEng = manga.NameENG,
+            };
+        }
     }
 }

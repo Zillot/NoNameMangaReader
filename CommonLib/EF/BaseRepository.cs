@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
+using CommonLib.Models;
 
 namespace CommonLib.EF
 {
     public abstract class BaseRepository<T, Context> : IBaseRepository<T, Context> 
-        where T : class
+        where T : class, IBaseDBModel 
         where Context : DbContext
     {
         public Context _webParserContext { get; set; }
@@ -54,6 +55,9 @@ namespace CommonLib.EF
 
         public T Add(T entity)
         {
+            entity.Created = DateTime.Now;
+            entity.Updated = DateTime.Now;
+
             _webParserContext.Entry(entity).State = EntityState.Added;
             _webParserContext.SaveChanges();
 
@@ -62,6 +66,12 @@ namespace CommonLib.EF
 
         public IEnumerable<T> Add(IEnumerable<T> entities)
         {
+            foreach (var entity in entities)
+            {
+                entity.Created = DateTime.Now;
+                entity.Updated = DateTime.Now;
+            }
+
             _webParserContext.Set<T>().AddRange(entities);
             _webParserContext.SaveChanges();
 
@@ -78,6 +88,8 @@ namespace CommonLib.EF
         {
             foreach (var entity in entities)
             {
+                entity.Updated = DateTime.Now;
+
                 _webParserContext.Entry(entity).State = EntityState.Deleted;
             }
 
@@ -86,6 +98,8 @@ namespace CommonLib.EF
 
         public void Update(T entity)
         {
+            entity.Updated = DateTime.Now;
+
             _webParserContext.Entry(entity).State = EntityState.Modified;
             _webParserContext.SaveChanges();
         }
@@ -94,6 +108,8 @@ namespace CommonLib.EF
         {
             foreach (var entity in entities)
             {
+                entity.Updated = DateTime.Now;
+
                 _webParserContext.Entry(entity).State = EntityState.Modified;
             }
 

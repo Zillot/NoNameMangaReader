@@ -9,11 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DMModels\" />
-    <Folder Include="Models\DTOModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CachingFramework.Redis" Version="10.0.4" />
     <PackageReference Include="Flurl" Version="2.8.1" />
     <PackageReference Include="Flurl.Http" Version="2.4.1" />

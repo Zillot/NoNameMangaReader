@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonLib.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebParser.DL.DBModels
 {
     [Table("Order")]
-    public class OrderDB
+    public class OrderDB : IBaseDBModel
     {
         public int Id { get; set; }
         public Guid Guid { get; set; }

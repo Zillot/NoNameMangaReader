@@ -5,12 +5,12 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using WebParser.Model.Models;
 using WebParser.BL.Services.PageParser;
+using CommonLib.Models.DTOModels;
 
 namespace WebParser.BL.Providers
 {
-    public class MangaReaderProvider: BasePageProvider<Manga>
+    public class MangaReaderProvider: BasePageProvider<MangaDTO>
     {
         private static readonly string xName = "//*[@id='mangaBox']/div[2]/h1";
         private static readonly string xScore = "//*[@id='mangaBox']/div[2]/div[1]/div[1]/div[3]/span/span";
@@ -21,7 +21,7 @@ namespace WebParser.BL.Providers
 
         public MangaReaderProvider(IProxyService proxyService) : base(proxyService) { }
 
-        public override async Task<Manga> ProccessUrl(string pageUrl)
+        public override async Task<MangaDTO> ProccessUrl(string pageUrl)
         {
             GetDoc("MangaPage").LoadHtml(await GetHtml(pageUrl));
 
@@ -53,7 +53,7 @@ namespace WebParser.BL.Providers
             var translators = GetMangaInfo(items, "Переводчики");
 
             var chapterNodes = ListXPath("MangaPage", xChapters);
-            var chapters = new List<MangaChapter>();
+            var chapters = new List<MangaChapterDTO>();
             foreach (var chapter in chapterNodes)
             {
                 try
@@ -66,7 +66,7 @@ namespace WebParser.BL.Providers
                 }
             };
 
-            return new Manga()
+            return new MangaDTO()
             {
                 PosterUrl = posterUrl,
 
@@ -101,7 +101,7 @@ namespace WebParser.BL.Providers
             return text.Trim();
         }
 
-        public async Task<MangaChapter> GetMangaChapter(HtmlNode chapterNode)
+        public async Task<MangaChapterDTO> GetMangaChapter(HtmlNode chapterNode)
         {
             var node = chapterNode.ChildNodes[1].ChildNodes[1];
 
@@ -116,7 +116,7 @@ namespace WebParser.BL.Providers
             var json = JsonConvert.DeserializeObject<List<List<string>>>(line);
             var urlsForScreens = json.Select(x => x[1] + x[2]);
 
-            return new MangaChapter
+            return new MangaChapterDTO
             {
                 Name = name,
                 Url = url,

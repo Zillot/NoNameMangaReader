@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonLib.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebParser.DL.DBModels
 {
     [Table("UserProfile")]
-    public class UserProfileDB
+    public class UserProfileDB : IBaseDBModel
     {
         public int Id { get; set; }
         public string Login { get; set; }

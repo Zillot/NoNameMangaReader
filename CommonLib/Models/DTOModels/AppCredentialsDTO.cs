@@ -1,4 +1,4 @@
-﻿namespace Auth.Model.DTOModels
+﻿namespace CommonLib.Models.DTOModels
 {
     public class AppCredentialsDTO
     {

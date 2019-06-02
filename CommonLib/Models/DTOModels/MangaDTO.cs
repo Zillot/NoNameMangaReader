@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace WebParser.Model.Models
+namespace CommonLib.Models.DTOModels
 {
-    public class Manga
+    public class MangaDTO
     {
         public string PosterUrl { get; set; }
 
         public string NameRus { get; set; }
         public string NameEng { get; set; }
         public string NameOrg { get; set; }
+
+        public string URL { get; set; }
+        public int ProviderId { get; set; }
 
         public string Description { get; set; }
         public float Score { get; set; }
@@ -23,6 +26,6 @@ namespace WebParser.Model.Models
         public string State { get; set; }
         public string Translators { get; set; }
 
-        public List<MangaChapter> Chapters { get; set; }
+        public IEnumerable<MangaChapterDTO> Chapters { get; set; }
     }
 }

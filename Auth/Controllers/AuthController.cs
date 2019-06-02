@@ -2,6 +2,7 @@
 using Auth.BL.Services;
 using Auth.Model.DTOModels;
 using CommonLib.Attributes;
+using CommonLib.Models.DTOModels;
 
 namespace Auth.Controllers
 {

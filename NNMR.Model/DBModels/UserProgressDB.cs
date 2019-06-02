@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonLib.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NNMR.Models.DBModels
 {
     [Table("UserProgress")]
-    public class UserProgressDB
+    public class UserProgressDB : IBaseDBModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }

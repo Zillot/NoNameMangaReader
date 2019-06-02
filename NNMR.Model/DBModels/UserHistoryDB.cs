@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonLib.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NNMR.Models.DBModels
 {
     [Table("UserHistory")]
-    public class UserHistoryDB
+    public class UserHistoryDB : IBaseDBModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }

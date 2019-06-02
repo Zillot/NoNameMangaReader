@@ -1,4 +1,5 @@
 ﻿using Auth.Model.DTOModels;
+using CommonLib.Models.DTOModels;
 
 namespace Auth.BL.Services
 {

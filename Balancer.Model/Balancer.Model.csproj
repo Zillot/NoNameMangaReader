@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DMModels\" />
-    <Folder Include="DTOModels\" />
     <Folder Include="Exeptions\" />
     <Folder Include="Models\" />
   </ItemGroup>

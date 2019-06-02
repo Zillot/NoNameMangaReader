@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace WebParser.Model.Models
+namespace CommonLib.Models.DTOModels
 {
-    public class MangaChapter
+    public class MangaChapterDTO
     {
         public string Url { get; set; }
         public string Name { get; set; }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonLib.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebParser.DL.DBModels
 {
     [Table("RoleType")]
-    public class RoleTypeDB
+    public class RoleTypeDB : IBaseDBModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
