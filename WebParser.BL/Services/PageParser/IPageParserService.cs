@@ -5,6 +5,7 @@ namespace WebParser.BL.Services.PageParser
 {
     public interface IPageParserService
     {
+        void ParserWorker();
         void ProccessOrder(PageParseOrderDTO nexOrder);
     };
 }

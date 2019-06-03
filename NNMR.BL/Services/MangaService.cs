@@ -1,12 +1,14 @@
-﻿using CommonLib.Models.DTOModels;
+﻿using Auth.Model.Exceptions;
+using CommonLib.Models.DTOModels;
 using CommonLib.Models.Exeptions;
 using CommonLib.Services;
 using NNMR.DL.Repositories;
 using NNMR.Models.DBModels;
+using System.Threading.Tasks;
 
 namespace NNMR.BL.Services
 {
-    public class MangaService
+    public class MangaService: IMangaService
     {
         private IDummyNetworkService _dummyNetworkService { get; set; }
 
@@ -45,46 +47,33 @@ namespace NNMR.BL.Services
 
             _mangaRepository.Add(mangaDb);
 
-            AddInfo(manga.NameOrg, "1", mangaDb.Id);
-            AddInfo(manga.NameRus, "1", mangaDb.Id);
-            AddInfo(manga.Author, "1", mangaDb.Id);
-            AddInfo(manga.Categories, "1", mangaDb.Id);
-            AddInfo(manga.Description, "1", mangaDb.Id);
-            AddInfo(manga.Genre, "1", mangaDb.Id);
-            AddInfo(manga.Magazines, "1", mangaDb.Id);
-            AddInfo(manga.PosterUrl, "1", mangaDb.Id);
-            AddInfo(manga.Publisher, "1", mangaDb.Id);
-            AddInfo(manga.PushlishYear, "1", mangaDb.Id);
-            AddInfo(manga.Score.ToString(), "1", mangaDb.Id);
-            AddInfo(manga.State, "1", mangaDb.Id);
-            AddInfo(manga.Translators, "1", mangaDb.Id);
-            AddInfo(manga.Volumes, "1", mangaDb.Id);
+            SaveMangaInfo(manga.NameOrg, "NameOrg", mangaDb.Id);
+            SaveMangaInfo(manga.NameRus, "NameRus", mangaDb.Id);
+            SaveMangaInfo(manga.Author, "Author", mangaDb.Id);
+            SaveMangaInfo(manga.Categories, "Categories", mangaDb.Id);
+            SaveMangaInfo(manga.Description, "Description", mangaDb.Id);
+            SaveMangaInfo(manga.Genre, "Genre", mangaDb.Id);
+            SaveMangaInfo(manga.Magazines, "Magazines", mangaDb.Id);
+            SaveMangaInfo(manga.PosterUrl, "PosterUrl", mangaDb.Id);
+            SaveMangaInfo(manga.Publisher, "Publisher", mangaDb.Id);
+            SaveMangaInfo(manga.PushlishYear, "PushlishYear", mangaDb.Id);
+            SaveMangaInfo(manga.Score.ToString(), "Score", mangaDb.Id);
+            SaveMangaInfo(manga.State, "State", mangaDb.Id);
+            SaveMangaInfo(manga.Translators, "Translators", mangaDb.Id);
+            SaveMangaInfo(manga.Volumes, "Volumes", mangaDb.Id);
 
             foreach (var chapter in manga.Chapters)
             {
-                var chapterDb = new ChapterDB()
+                var chapterDb = SaveMangaChapter(mangaDb.Id, chapter);
+
+                foreach (var chapterImg in chapter.URLs)
                 {
-                    MangaId = mangaDb.Id,
-                    Name = chapter.Name,
-                    URL = chapter.Url,
-                };
-
-                _chapterRepository.Add(chapterDb);
-
-                foreach (var chapterImg in chapter.Urls)
-                {
-                    var chapterImgDb = new ChapterImageDB()
-                    {
-                        ChapterId = chapterDb.Id,
-                        URL = chapterImg
-                    };
-
-                    _chapterImageRepository.Add(chapterImgDb);
+                    SaveChapterImage(chapterDb.Id, chapterImg);
                 }
             }
         }
 
-        public void AddInfo(string key, string value, int mangaId)
+        public void SaveMangaInfo(string key, string value, int mangaId)
         {
             var mangaInfoDb = new MangaInfoDB()
             {
@@ -96,6 +85,45 @@ namespace NNMR.BL.Services
             _mangaInfoRepository.Add(mangaInfoDb);
         }
 
+        public ChapterDB SaveMangaChapter(string mangaUrl, MangaChapterDTO chapter)
+        {
+            var mangaDb = _mangaRepository.FirstOrDefault(x => x.URL == mangaUrl);
+
+            return SaveMangaChapter(mangaDb.Id, chapter);
+        }
+
+        public ChapterDB SaveMangaChapter(int mangaId, MangaChapterDTO chapter)
+        {
+            var chapterDb = new ChapterDB()
+            {
+                MangaId = mangaId,
+                Name = chapter.Name,
+                URL = chapter.URL,
+            };
+
+            _chapterRepository.Add(chapterDb);
+            return chapterDb;
+        }
+
+        public ChapterImageDB SaveChapterImage(MangaChapterDTO chapter, string imageUrl)
+        {
+            var chapterId = _chapterRepository.FirstOrDefault(x => x.URL == chapter.URL);
+
+            return SaveChapterImage(chapterId.Id, imageUrl);
+        }
+
+        public ChapterImageDB SaveChapterImage(int chapterId, string imageUrl)
+        {
+            var chapterImgDb = new ChapterImageDB()
+            {
+                ChapterId = chapterId,
+                URL = imageUrl
+            };
+
+            _chapterImageRepository.Add(chapterImgDb);
+            return chapterImgDb;
+        }
+
         public MangaDTO GetManga(string url)
         {
             var manga = _mangaRepository.FirstOrDefault(x => x.URL == url);
@@ -105,8 +133,12 @@ namespace NNMR.BL.Services
             }
             else
             {
-                _dummyNetworkService.Post("ParseOrders/ProccessManga", null, null);
-                throw new System.Exception();
+                Task.Run(() => _dummyNetworkService.Get("ParseOrders/ProccessManga", new System.Collections.Generic.Dictionary<string, string>()
+                {
+                    { "url", url }
+                })).Wait();
+
+                throw new MangaQueuedException();
             }
         }
 

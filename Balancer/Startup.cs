@@ -51,9 +51,9 @@ namespace Balancer
                 app.UseHsts();
             }
 
-            //respponce status manager
+            //response status manager
             app.Use(ResponseCodeFilter.ManageResponseCodes);
-            //void respponce manager
+            //void response manager
             app.Use(VoidResponseFilter.ManageVoidResponse);
 
             app.UseMiddleware(typeof(ApiExceptionMiddleware));

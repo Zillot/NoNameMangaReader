@@ -7,11 +7,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebParser.BL.Services.PageParser;
 using CommonLib.Models.DTOModels;
+using CommonLib.Services;
 
 namespace WebParser.BL.Providers
 {
     public class MangaReaderProvider: BasePageProvider<MangaDTO>
     {
+        private IDummyNetworkService _dummyNetworkService { get; set; }
+
         private static readonly string xName = "//*[@id='mangaBox']/div[2]/h1";
         private static readonly string xScore = "//*[@id='mangaBox']/div[2]/div[1]/div[1]/div[3]/span/span";
         private static readonly string xDescription = "//*[@id='mangaBox']/div[2]/div[1]/div[2]";
@@ -19,7 +22,12 @@ namespace WebParser.BL.Providers
         private static readonly string xInfo = "//*[@id='mangaBox']/div[2]/div[1]/div[1]/div[4]";
         private static readonly string xChapters = "//div[contains(@class, 'chapters-link')]/table/tr";
 
-        public MangaReaderProvider(IProxyService proxyService) : base(proxyService) { }
+        public MangaReaderProvider(
+            IProxyService proxyService,
+            IDummyNetworkService dummyNetworkService) : base(proxyService)
+        {
+            _dummyNetworkService = dummyNetworkService;
+        }
 
         public override async Task<MangaDTO> ProccessUrl(string pageUrl)
         {
@@ -52,32 +60,21 @@ namespace WebParser.BL.Providers
             var state = GetMangaInfo(items, "Перевод");
             var translators = GetMangaInfo(items, "Переводчики");
 
-            var chapterNodes = ListXPath("MangaPage", xChapters);
-            var chapters = new List<MangaChapterDTO>();
-            foreach (var chapter in chapterNodes)
-            {
-                try
-                {
-                    chapters.Add(await GetMangaChapter(chapter));
-                }
-                catch (Exception ex)
-                {
-                    //TODO retry logic
-                }
-            };
-
-            return new MangaDTO()
+            var manga = new MangaDTO()
             {
                 PosterUrl = posterUrl,
 
                 NameRus = nameRus,
                 NameEng = nameEng,
                 NameOrg = nameOrg,
-                
+
                 Description = description,
                 Score = float.Parse(score),
 
-                Volumes =volumes,
+                URL = pageUrl,
+                ProviderId = 1,
+
+                Volumes = volumes,
                 Genre = genre,
                 Categories = categories,
                 Author = author,
@@ -87,8 +84,31 @@ namespace WebParser.BL.Providers
                 State = state,
                 Translators = translators,
 
-                Chapters = chapters
+                Chapters = new List<MangaChapterDTO>()
             };
+
+            Task.Run(() => _dummyNetworkService.PostObject("Manga/SaveManga", null, manga)).Wait();
+
+            var chapterNodes = ListXPath("MangaPage", xChapters);
+            foreach (var chapter in chapterNodes)
+            {
+                try
+                {
+                    var parsedChapter = await GetMangaChapter(chapter);
+                    Task.Run(() => _dummyNetworkService.PostObject("Manga/SaveMangaChapter", new Dictionary<string, string>()
+                    {
+                        { "mangaUrl", manga.URL }
+                    }, parsedChapter)).Wait();
+
+                    manga.Chapters.Add(parsedChapter);
+                }
+                catch (Exception ex)
+                {
+                    //TODO retry logic
+                }
+            };
+
+            return manga;
         }
 
         public string GetMangaInfo(IEnumerable<HtmlNode> nodes, string key)
@@ -119,8 +139,8 @@ namespace WebParser.BL.Providers
             return new MangaChapterDTO
             {
                 Name = name,
-                Url = url,
-                Urls = urlsForScreens
+                URL = url,
+                URLs = urlsForScreens
             };
         }
     }

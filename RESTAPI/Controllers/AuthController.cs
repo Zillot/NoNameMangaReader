@@ -26,7 +26,7 @@ namespace RESTAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<string> AppLogin(object jsonModel)
+        public async Task<string> AppLogin(object emptyBody)
         {
             return await _dummyNetworkService.Post("auth/appLogin", null, this.GetRawBody());
         }

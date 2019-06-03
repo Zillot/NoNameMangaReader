@@ -1,12 +1,8 @@
-﻿using CommonLib.Models.DTOModels;
-using CommonLib.Services;
-using Newtonsoft.Json;
-using System;
+﻿using CommonLib.Services;
 using System.Threading.Tasks;
 using WebParser.BL.Providers;
 using WebParser.BL.Services.ParseOrders;
 using WebParser.Model.DTOModels;
-using WebParser.Model.Models;
 
 namespace WebParser.BL.Services.PageParser
 {
@@ -15,6 +11,10 @@ namespace WebParser.BL.Services.PageParser
         private IParseOrdersService _parseOrdersService { get; set; }
         private IProxyService _proxyService { get; set; }
         private IDummyNetworkService _dummyNetworkService { get; set; }
+
+        private static bool _workerIsWorking { get; set; } = false;
+        private static bool _skipWorker { get; set; } = false;
+        private static bool _workerTask { get; set; } = false;
 
         public PageParserService(
             IParseOrdersService parseOrdersService,
@@ -29,11 +29,34 @@ namespace WebParser.BL.Services.PageParser
             _dummyNetworkService.SetBaseUri("http://localhost:51004/");
         }
 
+        public void AwakeWorker()
+        {
+            _skipWorker = false;
+        }
+
+        public void InitializeWorker()
+        {
+            if (_workerIsWorking)
+            {
+                return;
+            }
+
+            _workerIsWorking = true;
+            Task.Run(() => ParserWorker());
+        }
+
         public void ParserWorker()
         {
             var nexOrder = _parseOrdersService.PopNextOrderFromQueue();
 
-            ProccessOrder(nexOrder);
+            if (nexOrder != null)
+            {
+                ProccessOrder(nexOrder);
+            }
+            else
+            {
+                //Thread.CurrentThread.Suspend);
+            }
         }
 
         public void ProccessOrder(PageParseOrderDTO nextOrder)
@@ -44,9 +67,8 @@ namespace WebParser.BL.Services.PageParser
             {
                 case "ReadManga":
                     {
-                        var provider = new MangaReaderProvider(_proxyService);
-                        var result = Task.Run(() => provider.ProccessUrl(nextOrder.Url)).Result;
-                        SaveManga(result);
+                        var provider = new MangaReaderProvider(_proxyService, _dummyNetworkService);
+                        Task.Run(() => provider.ProccessUrl(nextOrder.Url)).Wait();
 
                         break;
                     }
@@ -55,11 +77,6 @@ namespace WebParser.BL.Services.PageParser
                         break;
                     }
             }
-        }
-
-        private void SaveManga(MangaDTO result)
-        {
-            _dummyNetworkService.Post("Manga/SaveManga", null, JsonConvert.SerializeObject(result));
         }
     }
 }

@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Formaters\" />
+    <Compile Remove="Formaters\**" />
+    <Content Remove="Formaters\**" />
+    <EmbeddedResource Remove="Formaters\**" />
+    <None Remove="Formaters\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

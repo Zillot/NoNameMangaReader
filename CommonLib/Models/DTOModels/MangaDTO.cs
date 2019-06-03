@@ -26,6 +26,6 @@ namespace CommonLib.Models.DTOModels
         public string State { get; set; }
         public string Translators { get; set; }
 
-        public IEnumerable<MangaChapterDTO> Chapters { get; set; }
+        public List<MangaChapterDTO> Chapters { get; set; }
     }
 }

@@ -4,8 +4,8 @@ namespace CommonLib.Models.DTOModels
 {
     public class MangaChapterDTO
     {
-        public string Url { get; set; }
+        public string URL { get; set; }
         public string Name { get; set; }
-        public IEnumerable<string> Urls { get; set; }
+        public IEnumerable<string> URLs { get; set; }
     }
 }

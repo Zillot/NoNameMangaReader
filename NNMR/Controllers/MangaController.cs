@@ -9,23 +9,35 @@ namespace WebParser.Controllers
     [Route("api/[controller]/[action]")]
     public class MangaController : ControllerBase
     {
-        private MangaService _mangaService { get; set; }
+        private IMangaService _mangaService { get; set; }
 
-        public MangaController(MangaService mangaService)
+        public MangaController(IMangaService mangaService)
         {
             _mangaService = mangaService;
         }
 
         [HttpPost]
-        public async Task SaveManga(MangaDTO manga)
+        public async Task SaveManga([FromBody]MangaDTO manga)
         {
             _mangaService.SaveManga(manga);
         }
 
-        [HttpGet]
-        public async Task GetManga(string url)
+        [HttpPost]
+        public async Task SaveMangaChapter(string mangaUrl, [FromBody]MangaChapterDTO chapter)
         {
-            _mangaService.GetManga(url);
+            _mangaService.SaveMangaChapter(mangaUrl, chapter);
+        }
+
+        [HttpGet]
+        public async Task<MangaDTO> GetManga(string url)
+        {
+            return _mangaService.GetManga(url);
+        }
+
+        [HttpGet]
+        public async Task<MangaDTO> GetMangaById(int id)
+        {
+            return _mangaService.GetManga(id);
         }
     }
 }

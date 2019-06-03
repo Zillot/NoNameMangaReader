@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NNMR.BL.Services;
 
 namespace NNMR.Setups
 {
@@ -6,7 +7,7 @@ namespace NNMR.Setups
     {
         public void SetupServices(IServiceCollection services)
         {
-
+            services.AddTransient<IMangaService, MangaService>();
         }
     }
 }

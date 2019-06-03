@@ -6,6 +6,11 @@ namespace CommonLib.Services
     public interface IDummyNetworkService
     {
         void SetBaseUri(string baseUri);
+        
+        Task<string> PostObject(
+            string relativeUri,
+            Dictionary<string, string> parameters,
+            object body);
 
         Task<string> Post(
             string relativeUri,
